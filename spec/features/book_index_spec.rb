@@ -129,7 +129,7 @@ describe "book_index" do
 
       select "Average rating (ascending)", :from => "sort[value]"
       click_button("Sort")
-
+save_and_open_page
       expect(page.all('.book-title')[0]).to have_content('The Shining')
       expect(page.all('.book-title')[1]).to have_content('Harry Potter 1')
       expect(page.all('.book-title')[2]).to have_content('Harry Potter 2')
@@ -189,8 +189,7 @@ describe "book_index" do
 
       click_on "Add a new book"
       expect(current_path).to eq(new_book_path)
-    end
-  end
+
 
   context "user selects sort by number of reviews ascending" do
     it "user can see book list sorted by number of reviews ascending" do
@@ -219,5 +218,6 @@ describe "book_index" do
       expect(page.all('.book-title')[3]).to have_content('The Shining')
     end
   end
-
+end
+end
 end
