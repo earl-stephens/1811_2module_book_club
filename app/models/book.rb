@@ -6,19 +6,20 @@ class Book < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :pages, presence: true
   validates :year_pub, presence: true
-  #validates :publisher, presence: true
 
   def avg_score
     if self.reviews.count == 0
       0
     else
-      self.reviews.average(:score)
+      self.reviews.average(:score).round(1)
     end
   end
 
   def self.select_sort(option)
-    if option == "avg_rating_asc"
-      self.left_joins(:reviews).group(:id).order("avg(reviews.score) asc nulls first, books.title asc")
+    if option == "random"
+      self.all.shuffle
+    elsif option == "avg_rating_asc"
+      self.left_joins(:reviews).group(:id).order("avg(reviews.score) asc nulls last, books.title asc")
     elsif option == "avg_rating_desc"
       self.left_joins(:reviews).group(:id).order("avg(reviews.score) desc nulls last, books.title asc")
     elsif option == "num_pages_asc"
