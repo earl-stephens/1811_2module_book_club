@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   delete 'books/:book_id/reviews/:id', to: 'reviews#destroy', as: 'book_review'
 
 
-  resources :authors, only: [:show, :edit, :destroy]
+  # resources :authors, only: [:show, :edit, :destroy]
+  get '/authors/:id', to: 'authors#show', as: 'author'
+  delete '/authors/:id', to: 'authors#destroy'
+  get '/authors/:id', to: 'authors#edit', as: 'edit_author'
   resources :users
 end
